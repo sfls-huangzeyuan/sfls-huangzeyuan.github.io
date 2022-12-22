@@ -28,6 +28,8 @@
 	<button onclick="var request_header='https://physics-static-cn.turtlesim.com/users/avatars/';
 			var request_body_string=document.getElementById('user_number').value;
 			var request_body=request_body_string.substring(0,4)+'/'+request_body_string.substring(4,6)+'/'+request_body_string.substring(6,8)+'/'+request_body_string.substring(8)+'/'+getElementById('avatar_number').value+'.jpg!small.round';
-			window.open(request_header+request_body);" type="button">查询</button>
+			if(request_body_string!='5f2663bbfb663239dc4a644e'&&request_body_string!='607ecc21b9ed29e8571ce8ec')
+			window.open(request_header+request_body);
+			else alert('此序列号禁止查询!')" type="button">查询</button>
 </body>
 </html>
