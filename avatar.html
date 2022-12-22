@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>物理试验室头像生成器</title>
+	<link rel="icon" href="https://cdn.luogu.com.cn/upload/image_hosting/qywh2rvi.png">
+	<style>
+		html, body 
+		{
+			height: 100%;
+			background-image: url("http://api.dujin.org/bing/1920.php");
+			background-repeat: no-repeat;
+			background-attachment:fixed;
+			background-position:50% 50%;
+			background-size: cover;
+		}
+		.code
+		{
+    		background-color: #000;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" placeholder="请输入用户序列号" id="user_number"/>
+	</br>第
+	<input type="number" placeholder="请输入头像编号" id="avatar_number" value="1"/>张
+	<button onclick="var request_header='https://physics-static-cn.turtlesim.com/users/avatars/';
+			var request_body_string=document.getElementById('user_number').value;
+			var request_body=request_body_string.substring(0,4)+'/'+request_body_string.substring(4,6)+'/'+request_body_string.substring(6,8)+'/'+request_body_string.substring(8)+'/'+getElementById('avatar_number').value+'.jpg!small.round';
+			window.open(request_header+request_body);" type="button">查询</button>
+</body>
+</html>
