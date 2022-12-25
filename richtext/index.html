@@ -10,14 +10,15 @@
 		{
 			width: 300px;
 			height: 50px;
+			border-radius: 6px;
 		}
 		#preload
 		{
 			border: 1px solid #ccc;
-			border-radius: 16px;
-			width: 250px;
+			border-radius: 6px;
+			width: 300px;
 			height: 75px;
-			text-align: center;
+			text-align: left;
 		}
 		a
 		{
@@ -31,9 +32,20 @@
 	const stack = [];
 </script>
 <body>
+	<script type="text/javascript">
+   		function copyText()
+   		{ 
+    		var text = richtext;
+			var input = document.getElementById("richtext");
+    	  	input.value = text;
+    	  	input.select();
+    	  	document.execCommand("copy");
+    	  	alert("复制成功");
+    	} 
+	</script>
 	<div>
-		<p id="preload">预览区</p>
-		<input id="richtext" placeholder="富文本" disabled/>
+		<p id="preload"></p>
+		<input id="richtext" placeholder="富文本"/>
 		<br>
 	</div>
 	<br>
@@ -48,7 +60,7 @@
 		if(tmp=='b') tmp='strong';
 		if(tmp=='experiment'||tmp=='discussion'||tmp=='user') tmp='font';
 		str=str+'</'+tmp+'>';
-		document.getElementById('preload').innerHTML='预览区:'+str;
+		document.getElementById('preload').innerHTML=str;
 		document.getElementById('richtext').value=richtext;
 	}
 	else alert('没有可关闭的标签!');
@@ -58,21 +70,21 @@
 	str=str+'<font color=#2881E0>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;user='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 	stack.push('user');
-	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('preload').innerHTML=str;
 	document.getElementById('richtext').value=richtext;
 	">&lt;user&gt;</button>
 	<button id="discussion" onclick="
 	str=str+'<font color=#2881E0>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;discussion='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 	stack.push('discussion');
-	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('preload').innerHTML=str;
 	document.getElementById('richtext').value=richtext;
 	">&lt;discussion&gt;</button>
 	<button id="experiment" onclick="
 	str=str+'<font color=#2881E0>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;experiment='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 	stack.push('experiment');
-	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('preload').innerHTML=str;
 	document.getElementById('richtext').value=richtext;
 	">&lt;experiment&gt;</button>
 	<br>
@@ -80,31 +92,35 @@
 	str=str+'<font color=#0000FF>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;a&gt;'+document.getElementById('content').value;
 	stack.push('a');
+	document.getElementById('preload').innerHTML=str;
+	document.getElementById('richtext').value=richtext;
 	">&lt;a&gt;</button>
 	<button id="color" onclick="
 	str=str+'<font color=#'+document.getElementById('attribute').value+'>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;color='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 	stack.push('color');
-	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('preload').innerHTML=str;
 	document.getElementById('richtext').value=richtext;
 	">&lt;color&gt;</button>
 	<button id="b" onclick="
 	str=str+'<strong>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;b&gt;'+document.getElementById('content').value;
 	stack.push('b');
+	document.getElementById('preload').innerHTML=str;
+	document.getElementById('richtext').value=richtext;
 	">&lt;b&gt;</button>
 	<button id="i" onclick="
 	str=str+'<i>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;i&gt;'+document.getElementById('content').value;
 	stack.push('i');
-	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('preload').innerHTML=str;
 	document.getElementById('richtext').value=richtext;
 	">&lt;i&gt;</button>
 	<button id="size" onclick="
 	str=str+'<font size='+document.getElementById('attribute').value+'>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;size='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 	stack.push('size');
-	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('preload').innerHTML=str;
 	document.getElementById('richtext').value=richtext;
 	">&lt;size&gt;</button>
 	<button id="prelook" onclick="
@@ -123,11 +139,13 @@
 		tmp_str.replace('/<\/color>/g','<\/font>');
 		tmp_str.replace('/<\/size>/g','<\/font>');
 		str=tmp_str;
-		document.getElementById('preload').innerHTML='预览区:'+tmp_str;
+		document.getElementById('preload').innerHTML=tmp_str;
 	}
 	">预览富文本</button>
 	<button id='reset' onclick="
 	richtext=str='';
+	document.getElementById('preload').innerHTML=str;
+	document.getElementById('richtext').value=richtext;
 	">重置</button>
 </body>
 </html>
