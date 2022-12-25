@@ -22,7 +22,11 @@
 		}
 		a
 		{
-			color: #0000FF;
+			text-decoration: none;
+		}
+		user
+		{
+			color: #2881E0;
 		}
 	</style>
 </head>
@@ -52,6 +56,7 @@
 	<input id="content" placeholder="标签内内容"/>
 	<input id="attribute" placeholder="标签内属性"/>
 	<button id="close" onclick="
+	richtext=getElementById('richtext').value;
 	if(stack.length>0)
 	{
 		var tmp=stack.pop();
@@ -67,6 +72,7 @@
 	">关闭标签</button>
 	<br>
 	<button id="user" onclick="
+	richtext=getElementById('richtext').value;
 	str=str+'<font color=#2881E0>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;user='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 	stack.push('user');
@@ -74,6 +80,7 @@
 	document.getElementById('richtext').value=richtext;
 	">&lt;user&gt;</button>
 	<button id="discussion" onclick="
+	richtext=getElementById('richtext').value;
 	str=str+'<font color=#2881E0>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;discussion='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 	stack.push('discussion');
@@ -81,6 +88,7 @@
 	document.getElementById('richtext').value=richtext;
 	">&lt;discussion&gt;</button>
 	<button id="experiment" onclick="
+	richtext=getElementById('richtext').value;
 	str=str+'<font color=#2881E0>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;experiment='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 	stack.push('experiment');
@@ -89,6 +97,7 @@
 	">&lt;experiment&gt;</button>
 	<br>
 	<button id="a" onclick="
+	richtext=getElementById('richtext').value;
 	str=str+'<font color=#0000FF>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;a&gt;'+document.getElementById('content').value;
 	stack.push('a');
@@ -96,6 +105,7 @@
 	document.getElementById('richtext').value=richtext;
 	">&lt;a&gt;</button>
 	<button id="color" onclick="
+	richtext=getElementById('richtext').value;
 	str=str+'<font color=#'+document.getElementById('attribute').value+'>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;color='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 	stack.push('color');
@@ -103,6 +113,7 @@
 	document.getElementById('richtext').value=richtext;
 	">&lt;color&gt;</button>
 	<button id="b" onclick="
+	richtext=getElementById('richtext').value;
 	str=str+'<strong>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;b&gt;'+document.getElementById('content').value;
 	stack.push('b');
@@ -110,6 +121,7 @@
 	document.getElementById('richtext').value=richtext;
 	">&lt;b&gt;</button>
 	<button id="i" onclick="
+	richtext=getElementById('richtext').value;
 	str=str+'<i>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;i&gt;'+document.getElementById('content').value;
 	stack.push('i');
@@ -117,12 +129,14 @@
 	document.getElementById('richtext').value=richtext;
 	">&lt;i&gt;</button>
 	<button id="size" onclick="
+	richtext=getElementById('richtext').value;
 	str=str+'<font size='+document.getElementById('attribute').value+'>'+document.getElementById('content').value;
 	richtext=richtext+'&lt;size='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 	stack.push('size');
 	document.getElementById('preload').innerHTML=str;
 	document.getElementById('richtext').value=richtext;
 	">&lt;size&gt;</button>
+	<br>
 	<button id="prelook" onclick="
 	richtext=getElementById('richtext').value;
 	if(richtext=='')
@@ -130,15 +144,36 @@
 	else
 	{
 		var tmp_str=richtext;
-		tmp_str.replace('/<a>/g','<font color=#0000FF>');
-		tmp_str.replace('/<b>/g','<strong>');
-		tmp_str.replace('/<\/a>/g','<\/font>');
-		tmp_str.replace('/<\/b>/g','<\/strong>');
-		tmp_str.replace('/<color=/g','<font color=');
-		tmp_str.replace('/<size=/g','<font size=');
-		tmp_str.replace('/<\/color>/g','<\/font>');
-		tmp_str.replace('/<\/size>/g','<\/font>');
-		str=tmp_str;
+		var reg=new RegExp('<a>','g');
+		tmp_str = tmp_str.replace( reg , '<font color=#0000FF>' );
+		var reg=new RegExp('<\/a>','g');
+		tmp_str = tmp_str.replace( reg , '<\/font>' );
+		var reg=new RegExp('<b>','g');
+		tmp_str = tmp_str.replace( reg , '<strong>' );
+		var reg=new RegExp('<\/b>','g');
+		tmp_str = tmp_str.replace( reg , '<\/strong>' );
+		var reg=new RegExp('<color=','g');
+		tmp_str = tmp_str.replace( reg , '<font color=' );
+		var reg=new RegExp('<\/color>','g');
+		tmp_str = tmp_str.replace( reg , '<\/font>' );
+		var reg=new RegExp('<size=','g');
+		tmp_str = tmp_str.replace( reg , '<font size=' );
+		var reg=new RegExp('<\/size>','g');
+		tmp_str = tmp_str.replace( reg , '<\/font>' );
+		var reg=new RegExp('<user=','g');
+		tmp_str = tmp_str.replace( reg , '<font color=#2881E0<p');
+		var reg=new RegExp('<\/user>','g');
+		tmp_str = tmp_str.replace( reg , '<\/p><\/font>' );
+		var reg=new RegExp('<experiment=','g');
+		tmp_str = tmp_str.replace( reg , '<font color=#2881E0<p');
+		var reg=new RegExp('<\/experiment>','g');
+		tmp_str = tmp_str.replace( reg , '<\/p><\/font>' );
+		var reg=new RegExp('<discussion=','g');
+		tmp_str = tmp_str.replace( reg , '<font color=#2881E0><p');
+		var reg=new RegExp('<\/discussion>','g');
+		tmp_str = tmp_str.replace( reg , '<\/p><\/font>' );
+		//str=tmp_str;
+		document.getElementById('richtext').value=richtext;
 		document.getElementById('preload').innerHTML=tmp_str;
 	}
 	">预览富文本</button>
@@ -146,6 +181,7 @@
 	richtext=str='';
 	document.getElementById('preload').innerHTML=str;
 	document.getElementById('richtext').value=richtext;
+	stack.length=0;
 	">重置</button>
 </body>
 </html>
