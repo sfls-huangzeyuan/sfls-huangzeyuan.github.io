@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>物理试验室文本标签生成器</title>
+	<link rel="icon" href="https://cdn.luogu.com.cn/upload/image_hosting/ldgpxz3z.png">
+	<style type="text/css">
+		#richtext
+		{
+			width: 300px;
+			height: 50px;
+		}
+		#preload
+		{
+			border: 1px solid #ccc;
+			border-radius: 16px;
+			width: 250px;
+			height: 75px;
+			text-align: center;
+		}
+		a
+		{
+			color: #0000FF;
+		}
+	</style>
+</head>
+<script type="text/javascript">
+	var str='';
+	var richtext='';
+	const stack = [];
+</script>
+<body>
+	<div>
+		<p id="preload">预览区</p>
+		<input id="richtext" placeholder="富文本" disabled/>
+		<br>
+	</div>
+	<br>
+	<input id="content" placeholder="标签内内容"/>
+	<input id="attribute" placeholder="标签内属性"/>
+	<button id="close" onclick="
+	if(stack.length>0)
+	{
+		var tmp=stack.pop();
+		richtext=richtext+'</'+tmp+'>';
+		if(tmp=='a') tmp='font';
+		if(tmp=='b') tmp='strong';
+		if(tmp=='experiment'||tmp=='discussion'||tmp=='user') tmp='font';
+		str=str+'</'+tmp+'>';
+		document.getElementById('preload').innerHTML='预览区:'+str;
+		document.getElementById('richtext').value=richtext;
+	}
+	else alert('没有可关闭的标签!');
+	">关闭标签</button>
+	<br>
+	<button id="user" onclick="
+	str=str+'<font color=#2881E0>'+document.getElementById('content').value;
+	richtext=richtext+'&lt;user='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
+	stack.push('user');
+	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('richtext').value=richtext;
+	">&lt;user&gt;</button>
+	<button id="discussion" onclick="
+	str=str+'<font color=#2881E0>'+document.getElementById('content').value;
+	richtext=richtext+'&lt;discussion='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
+	stack.push('discussion');
+	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('richtext').value=richtext;
+	">&lt;discussion&gt;</button>
+	<button id="experiment" onclick="
+	str=str+'<font color=#2881E0>'+document.getElementById('content').value;
+	richtext=richtext+'&lt;experiment='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
+	stack.push('experiment');
+	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('richtext').value=richtext;
+	">&lt;experiment&gt;</button>
+	<br>
+	<button id="a" onclick="
+	str=str+'<font color=#0000FF>'+document.getElementById('content').value;
+	richtext=richtext+'&lt;a&gt;'+document.getElementById('content').value;
+	stack.push('a');
+	">&lt;a&gt;</button>
+	<button id="color" onclick="
+	str=str+'<font color=#'+document.getElementById('attribute').value+'>'+document.getElementById('content').value;
+	richtext=richtext+'&lt;color='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
+	stack.push('color');
+	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('richtext').value=richtext;
+	">&lt;color&gt;</button>
+	<button id="b" onclick="
+	str=str+'<strong>'+document.getElementById('content').value;
+	richtext=richtext+'&lt;b&gt;'+document.getElementById('content').value;
+	stack.push('b');
+	">&lt;b&gt;</button>
+	<button id="i" onclick="
+	str=str+'<i>'+document.getElementById('content').value;
+	richtext=richtext+'&lt;i&gt;'+document.getElementById('content').value;
+	stack.push('i');
+	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('richtext').value=richtext;
+	">&lt;i&gt;</button>
+	<button id="size" onclick="
+	str=str+'<font size='+document.getElementById('attribute').value+'>'+document.getElementById('content').value;
+	richtext=richtext+'&lt;size='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
+	stack.push('size');
+	document.getElementById('preload').innerHTML='预览区:'+str;
+	document.getElementById('richtext').value=richtext;
+	">&lt;size&gt;</button>
+	<button id="prelook" onclick="
+	richtext=getElementById('richtext').value;
+	if(richtext=='')
+		alert('当前无富文本');
+	else
+	{
+		var tmp_str=richtext;
+		tmp_str.replace('/<a>/g','<font color=#0000FF>');
+		tmp_str.replace('/<b>/g','<strong>');
+		tmp_str.replace('/<\/a>/g','<\/font>');
+		tmp_str.replace('/<\/b>/g','<\/strong>');
+		tmp_str.replace('/<color=/g','<font color=');
+		tmp_str.replace('/<size=/g','<font size=');
+		tmp_str.replace('/<\/color>/g','<\/font>');
+		tmp_str.replace('/<\/size>/g','<\/font>');
+		str=tmp_str;
+		document.getElementById('preload').innerHTML='预览区:'+tmp_str;
+	}
+	">预览富文本</button>
+	<button id='reset' onclick="
+	richtext=str='';
+	">重置</button>
+</body>
+</html>
