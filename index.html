@@ -166,53 +166,67 @@
 </script>
 <div style = "display:none;">动态线条</div>
 <script>
-!function(){
-function n(n,e,t){
-return n.getAttribute(e)||t
-}
-function e(n){
-return document.getElementsByTagName(n)
-}
-function t(){
-var t=e("script"),o=t.length,i=t[o-1];
-return{
-l:o,z:n(i,"zIndex",-1),o:n(i,"opacity",.5),c:n(i,"color","0,0,0"),n:n(i,"count",99)
-}
-}
-function o(){
-a=m.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,
-c=m.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight
-}
-function i(){
-r.clearRect(0,0,a,c);
-var n,e,t,o,m,l;
-s.forEach(function(i,x){
-for(i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>a||i.x<0?-1:1,i.ya*=i.y>c||i.y<0?-1:1,r.fillRect(i.x-.5,i.y-.5,1,1),e=x+1;e<u.length;e++)n=u[e],
-null!==n.x&&null!==n.y&&(o=i.x-n.x,m=i.y-n.y,
-l=o*o+m*m,l<n.max&&(n===y&&l>=n.max/2&&(i.x-=.03*o,i.y-=.03*m),
-t=(n.max-l)/n.max,r.beginPath(),r.lineWidth=t/2,r.strokeStyle="rgba("+d.c+","+(t+.2)+")",r.moveTo(i.x,i.y),r.lineTo(n.x,n.y),r.stroke()))
-}),
-x(i)
-}
-var a,c,u,m=document.createElement("canvas"),
-d=t(),l="c_n"+d.l,r=m.getContext("2d"),
-x=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||
-function(n){
-window.setTimeout(n,1e3/45)
-},
-w=Math.random,y={x:null,y:null,max:2e4};m.id=l,m.style.cssText="position:fixed;top:0;left:0;z-index:"+d.z+";opacity:"+d.o,e("body")[0].appendChild(m),o(),window.onresize=o,
-window.onmousemove=function(n){
-n=n||window.event,y.x=n.clientX,y.y=n.clientY
-},
-window.onmouseout=function(){
-y.x=null,y.y=null
-};
-for(var s=[],f=0;d.n>f;f++){
-var h=w()*a,g=w()*c,v=2*w()-1,p=2*w()-1;s.push({x:h,y:g,xa:v,ya:p,max:6e3})
-}
+	!function(){
+	function n(n,e,t){
+	return n.getAttribute(e)||t
+	}
+	function e(n){
+	return document.getElementsByTagName(n)
+	}
+	function t(){
+	var t=e("script"),o=t.length,i=t[o-1];
+	return{
+	l:o,z:n(i,"zIndex",-1),o:n(i,"opacity",.5),c:n(i,"color","0,0,0"),n:n(i,"count",99)
+	}
+	}
+	function o(){
+	a=m.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,
+	c=m.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight
+	}
+	function i(){
+	r.clearRect(0,0,a,c);
+	var n,e,t,o,m,l;
+	s.forEach(function(i,x){
+	for(i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>a||i.x<0?-1:1,i.ya*=i.y>c||i.y<0?-1:1,r.fillRect(i.x-.5,i.y-.5,1,1),e=x+1;e<u.length;e++)n=u[e],
+	null!==n.x&&null!==n.y&&(o=i.x-n.x,m=i.y-n.y,
+	l=o*o+m*m,l<n.max&&(n===y&&l>=n.max/2&&(i.x-=.03*o,i.y-=.03*m),
+	t=(n.max-l)/n.max,r.beginPath(),r.lineWidth=t/2,r.strokeStyle="rgba("+d.c+","+(t+.2)+")",r.moveTo(i.x,i.y),r.lineTo(n.x,n.y),r.stroke()))
+	}),
+	x(i)
+	}
+	var a,c,u,m=document.createElement("canvas"),
+	d=t(),l="c_n"+d.l,r=m.getContext("2d"),
+	x=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||
+	function(n){
+	window.setTimeout(n,1e3/45)
+	},
+	w=Math.random,y={x:null,y:null,max:2e4};m.id=l,m.style.cssText="position:fixed;top:0;left:0;z-index:"+d.z+";opacity:"+d.o,e("body")[0].appendChild(m),o(),window.onresize=o,
+	window.onmousemove=function(n){
+	n=n||window.event,y.x=n.clientX,y.y=n.clientY
+	},
+	window.onmouseout=function(){
+	y.x=null,y.y=null
+	};
+	for(var s=[],f=0;d.n>f;f++){
+	var h=w()*a,g=w()*c,v=2*w()-1,p=2*w()-1;s.push({x:h,y:g,xa:v,ya:p,max:6e3})
+	}
 u=s.concat([y]),
 setTimeout(function(){i()},100)
 }();
+window.onload = function()
+{  
+document.onkeydown = function ()
+{ 
+	var e = window.event || arguments[0];  if(e.keyCode == 123){ return false;  }else if((e.ctrlKey) && (e.shiftKey) && (e.keyCode == 73)){ return false;  }else if((e.shiftKey) && (e.keyCode == 121)){ return false;  }else if((e.ctrlKey) && (e.keyCode == 85)){ return false; } };  
+	var threshold = 160; // 打开控制台的宽或高阈值
+	var check = setInterval(function() {
+	if (window.outerWidth - window.innerWidth > threshold ||
+	window.outerHeight - window.innerHeight > threshold) {
+	window.location.reload();
+
+}
+
+}, 1000);
 </script>
 <div style = "display:none;"> 动态线条end</div>
 <style type="text/css">
@@ -228,7 +242,7 @@ setTimeout(function(){i()},100)
 }
 </style>
 </head>
-<body>
+<body oncontextmenu=self.event.returnValue=false onselectstart="return false">
 	<div class="content">
 	<h1>物理试验室头像查询服务</h1>
 	<strong>如遇到报错情况是查询了不存在的序列号或不存在的头像编号</strong>
@@ -250,6 +264,7 @@ setTimeout(function(){i()},100)
 			else if(request_body_string=='') alert('序列码不能为空!');
 			else alert('此序列号禁止查询!');
 			" type="button" id="btn">查询</button>
+			<a href="/richtext/">富文本生成</a>
 	</div>
 	<script type="text/javascript">
 	$('#btn').click(function()
@@ -428,4 +443,73 @@ const cursorSpecialEffects = new CursorSpecialEffects()
 cursorSpecialEffects.init()
 	</script>
 </body>
-</html>
+</html>",-1),o:n(i,"opacity",.5),c:n(i,"color","0,0,0"),n:n(i,"count",99)
+}
+}
+function o(){
+a=m.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,
+c=m.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight
+}
+function i(){
+r.clearRect(0,0,a,c);
+var n,e,t,o,m,l;
+s.forEach(function(i,x){
+for(i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>a||i.x<0?-1:1,i.ya*=i.y>c||i.y<0?-1:1,r.fillRect(i.x-.5,i.y-.5,1,1),e=x+1;e<u.length;e++)n=u[e],
+null!==n.x&&null!==n.y&&(o=i.x-n.x,m=i.y-n.y,
+l=o*o+m*m,l<n.max&&(n===y&&l>=n.max/2&&(i.x-=.03*o,i.y-=.03*m),
+t=(n.max-l)/n.max,r.beginPath(),r.lineWidth=t/2,r.strokeStyle="rgba("+d.c+","+(t+.2)+")",r.moveTo(i.x,i.y),r.lineTo(n.x,n.y),r.stroke()))
+}),
+x(i)
+}
+var a,c,u,m=document.createElement("canvas"),
+d=t(),l="c_n"+d.l,r=m.getContext("2d"),
+x=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||
+function(n){
+window.setTimeout(n,1e3/45)
+},
+w=Math.random,y={x:null,y:null,max:2e4};m.id=l,m.style.cssText="position:fixed;top:0;left:0;z-index:"+d.z+";opacity:"+d.o,e("body")[0].appendChild(m),o(),window.onresize=o,
+window.onmousemove=function(n){
+n=n||window.event,y.x=n.clientX,y.y=n.clientY
+},
+window.onmouseout=function(){
+y.x=null,y.y=null
+};
+for(var s=[],f=0;d.n>f;f++){
+var h=w()*a,g=w()*c,v=2*w()-1,p=2*w()-1;s.push({x:h,y:g,xa:v,ya:p,max:6e3})
+}
+u=s.concat([y]),
+setTimeout(function(){i()},100)
+}();
+</script>
+<div style = "display:none;"> 动态线条end</div>
+<style type="text/css">
+#Snow{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    background: rgba(255,255,240,0.1);
+    pointer-events: none;
+}
+</style>
+</head>
+<body>
+	<div class="content">
+	<h1>物理试验室头像查询服务</h1>
+	<strong>如遇到报错情况是查询了不存在的序列号或不存在的头像编号</strong>
+	<br><br><br>
+	<select id="img_type">
+		<option selected="selected">full</option>
+		<option>small.round</option>
+		<option>tiny.round</option>
+	</select>
+	<input type="text" placeholder="请输入用户序列号" id="user_number"/>
+	</br>第
+	<input type="number" placeholder="请输入头像编号" id="avatar_number" value="1" height="50" />张
+	<button onclick="
+			var request_header='https://physics-static-cn.turtlesim.com/users/avatars/';
+			var request_body_string=document.getElementById('user_number').value;
+			var request_body=request_body_string.substring(0,4)+'/'+request_body_string.substring(4,6)+'/'+request_body_string.substring(6,8)+'/'+request_body_string.substring(8)+'/'+getElementById('avatar_number').value+'.jpg!';
+			if( request_body_string!='5f2663bbfb663239dc4a644e'&&request_body_string!='607ecc21b9ed29e8571ce8ec
