@@ -52,6 +52,46 @@
     	  	document.execCommand("copy");
     	  	alert("复制成功");
     	} 
+    	function preload()
+    	{
+    		stack.length=0;
+    		var tmp_str=richtext;
+			var reg=new RegExp('<a>','g');
+			tmp_str = tmp_str.replace( reg , '<font color=#0000FF>' );
+			stack.push('a');
+			var reg=new RegExp('<\/a>','g');
+			tmp_str = tmp_str.replace( reg , '<\/font>' );
+			var tmp=stack.pop();
+			var reg=new RegExp('<b>','g');
+			tmp_str = tmp_str.replace( reg , '<strong>' );
+			stack.push('b');
+			var reg=new RegExp('<\/b>','g');
+			var tmp=stack.pop();
+			tmp_str = tmp_str.replace( reg , '<\/strong>' );
+			var reg=new RegExp('<color=','g');
+			tmp_str = tmp_str.replace( reg , '<font color=' );
+			var reg=new RegExp('<\/color>','g');
+			tmp_str = tmp_str.replace( reg , '<\/font>' );
+			var reg=new RegExp('<size=','g');
+			tmp_str = tmp_str.replace( reg , '<font size=' );
+			var reg=new RegExp('<\/size>','g');
+			tmp_str = tmp_str.replace( reg , '<\/font>' );
+			var reg=new RegExp('<user=','g');
+			tmp_str = tmp_str.replace( reg , '<font color=#2881E0><p');
+			var reg=new RegExp('<\/user>','g');
+			tmp_str = tmp_str.replace( reg , '<\/p><\/font>' );
+			var reg=new RegExp('<experiment=','g');
+			tmp_str = tmp_str.replace( reg , '<font color=#2881E0><p');
+			var reg=new RegExp('<\/experiment>','g');
+			tmp_str = tmp_str.replace( reg , '<\/p><\/font>' );
+			var reg=new RegExp('<discussion=','g');
+			tmp_str = tmp_str.replace( reg , '<font color=#2881E0><p');
+			var reg=new RegExp('<\/discussion>','g');
+			tmp_str = tmp_str.replace( reg , '<\/p><\/font>' );
+			str=tmp_str;
+			document.getElementById('richtext').value=richtext;
+			document.getElementById('preload').innerHTML=tmp_str;
+    	}
 	</script>
 	<div>
 		<p id="preload"></p>
@@ -76,6 +116,13 @@
 	}
 	else alert('没有可关闭的标签!');
 	">关闭标签</button>
+	<button id='reset' onclick="
+	richtext=str='';
+	document.getElementById('preload').innerHTML=str;
+	document.getElementById('richtext').value=richtext;
+	stack.length=0;
+	">重置</button>
+	<button id='copy' onclick="copyText()">复制</button>
 	<br>
 	<button id="user" onclick="
 	richtext=getElementById('richtext').value;
@@ -148,46 +195,7 @@
 	if(richtext=='')
 		alert('当前无富文本');
 	else
-	{
-		var tmp_str=richtext;
-		var reg=new RegExp('<a>','g');
-		tmp_str = tmp_str.replace( reg , '<font color=#0000FF>' );
-		var reg=new RegExp('<\/a>','g');
-		tmp_str = tmp_str.replace( reg , '<\/font>' );
-		var reg=new RegExp('<b>','g');
-		tmp_str = tmp_str.replace( reg , '<strong>' );
-		var reg=new RegExp('<\/b>','g');
-		tmp_str = tmp_str.replace( reg , '<\/strong>' );
-		var reg=new RegExp('<color=','g');
-		tmp_str = tmp_str.replace( reg , '<font color=' );
-		var reg=new RegExp('<\/color>','g');
-		tmp_str = tmp_str.replace( reg , '<\/font>' );
-		var reg=new RegExp('<size=','g');
-		tmp_str = tmp_str.replace( reg , '<font size=' );
-		var reg=new RegExp('<\/size>','g');
-		tmp_str = tmp_str.replace( reg , '<\/font>' );
-		var reg=new RegExp('<user=','g');
-		tmp_str = tmp_str.replace( reg , '<font color=#2881E0><p');
-		var reg=new RegExp('<\/user>','g');
-		tmp_str = tmp_str.replace( reg , '<\/p><\/font>' );
-		var reg=new RegExp('<experiment=','g');
-		tmp_str = tmp_str.replace( reg , '<font color=#2881E0><p');
-		var reg=new RegExp('<\/experiment>','g');
-		tmp_str = tmp_str.replace( reg , '<\/p><\/font>' );
-		var reg=new RegExp('<discussion=','g');
-		tmp_str = tmp_str.replace( reg , '<font color=#2881E0><p');
-		var reg=new RegExp('<\/discussion>','g');
-		tmp_str = tmp_str.replace( reg , '<\/p><\/font>' );
-		//str=tmp_str;
-		document.getElementById('richtext').value=richtext;
-		document.getElementById('preload').innerHTML=tmp_str;
-	}
+		preload();
 	">预览富文本</button>
-	<button id='reset' onclick="
-	richtext=str='';
-	document.getElementById('preload').innerHTML=str;
-	document.getElementById('richtext').value=richtext;
-	stack.length=0;
-	">重置</button>
 </body>
 </html>
