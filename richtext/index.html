@@ -12,15 +12,17 @@
 			width: 300px;
 			height: 50px;
 			border-radius: 6px;
+			overflow: auto;
 		}
 		#preload
 		{
-			border: 1px solid #CCC;
+			border: 1px solid #CCCCCC;
 			border-radius: 6px;
 			width: 300px;
 			height: 75px;
 			text-align: left;
-			background-color: #FFF;
+			background-color: #FFFFFF;
+			overflow: auto;
 		}
 		preload-display
 		{
@@ -31,6 +33,7 @@
 		a
 		{
 			text-decoration: none;
+			color: #2881E0;
 		}
 		html, body 
 		{
@@ -127,7 +130,7 @@
 
 			if(tmp=='b') tmp='strong';
 
-			if(tmp=='experiment'||tmp=='discussion'||tmp=='user') tmp='font';
+			if(tmp=='experiment'||tmp=='discussion'||tmp=='user') tmp='a></font';
 
 			str=str+'</'+tmp+'>';
 
@@ -146,7 +149,7 @@
 	<br>
 	<button id="user" onclick="
 		richtext=getElementById('richtext').value;
-		str=str+'<font color=#2881E0>'+document.getElementById('content').value;
+		str=str+'<font color=#2881E0><a target=\'_blank\' href=\'https://turtlesim.com/plc/?chinese-user-'+document.getElementById('attribute').value+'?\'>'+document.getElementById('content').value;
 		richtext=richtext+'&lt;user='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 		stack.push('user');
 		document.getElementById('preload').innerHTML=str;
@@ -154,7 +157,7 @@
 	">&lt;user&gt;</button>
 	<button id="discussion" onclick="
 		richtext=getElementById('richtext').value;
-		str=str+'<font color=#2881E0>'+document.getElementById('content').value;
+		str=str+'<font color=#2881E0><a target=\'_blank\' href=\'https://turtlesim.com/plc/?chinese-discussion-'+document.getElementById('attribute').value+'?\'>'+document.getElementById('content').value;
 		richtext=richtext+'&lt;discussion='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 		stack.push('discussion');
 		document.getElementById('preload').innerHTML=str;
@@ -162,7 +165,7 @@
 	">&lt;discussion&gt;</button>
 	<button id="experiment" onclick="
 		richtext=getElementById('richtext').value;
-		str=str+'<font color=#2881E0>'+document.getElementById('content').value;
+		str=str+'<font color=#2881E0><a target=\'_blank\' href=\'https://turtlesim.com/plc/?chinese-experiment-'+document.getElementById('attribute').value+'?\'>'+document.getElementById('content').value;
 		richtext=richtext+'&lt;experiment='+document.getElementById('attribute').value+'&gt;'+document.getElementById('content').value;
 		stack.push('experiment');
 		document.getElementById('preload').innerHTML=str;
